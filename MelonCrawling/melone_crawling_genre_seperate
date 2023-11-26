@@ -1,0 +1,29 @@
+import pandas as pd
+
+# CSV 파일 경로
+csv_file_path = 'C:\\Users\\yeryu\\Desktop\\빅데프 기말 프로젝트 최종\\Term_Project\\MelonCrawling\\melon_crawling_details_all_finish.csv'
+
+# CSV 파일 읽기
+df = pd.read_csv(csv_file_path)
+
+# 결측값이 있는 행 제거
+df = df.dropna(subset=[df.columns[4]])
+
+# 장르에 따라 데이터 분리
+dance_df = df[df.iloc[:, 4].str.contains('댄스')]
+rap_hip_hop_df = df[df.iloc[:, 4].str.contains('랩/힙합')]
+ballad_df = df[df.iloc[:, 4].str.contains('발라드')]
+rnb_soul_df = df[df.iloc[:, 4].str.contains('R&B/Soul')]
+rock_metal_df = df[df.iloc[:, 4].str.contains('록/메탈')]
+
+dance_df = dance_df.drop(columns=['Genre'])
+rap_hip_hop_df = rap_hip_hop_df.drop(columns=['Genre'])
+ballad_df = ballad_df.drop(columns=['Genre'])
+rnb_soul_df = rnb_soul_df.drop(columns=['Genre'])
+rock_metal_df = rock_metal_df.drop(columns=['Genre'])
+# 새로운 CSV 파일로 저장
+dance_df.to_csv('afterJune_dance.csv', index=False)
+rap_hip_hop_df.to_csv('afterJune_rap_hip_hop.csv', index=False)
+ballad_df.to_csv('afterJune_ballad.csv', index=False)
+rnb_soul_df.to_csv('afterJune_rnb_soul.csv', index=False)
+rock_metal_df.to_csv('afterJune_rock_metal.csv', index=False)
