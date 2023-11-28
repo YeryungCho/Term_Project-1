@@ -39,5 +39,4 @@ if __name__ == "__main__":
                         json_data = json.load(json_file)
                         # JSON 데이터를 CSV 파일로 변환
                         convert_json_to_csv(json_data, csv_file_path)
-                        is_first = False
     print("JSON 데이터가 성공적으로 CSV 파일로 변환되었습니다.")
