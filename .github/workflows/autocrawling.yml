@@ -57,4 +57,3 @@ jobs:
         env:
           HADOOP_USER_NAME: maria_dev
           HADOOP_SSH_PRIVATE_KEY: ${{ secrets.HADOOP_SSH_PRIVATE_KEY }}
-          HADOOP_SSH_PRIVATE_KEY: ${{ secrets.HADOOP_SSH_PRIVATE_KEY }}
