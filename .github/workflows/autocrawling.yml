@@ -56,7 +56,8 @@ jobs:
           git config --global user.email "gus1043@gmail.com"
           git add .
           git commit -m "Update crawling"
-          git push
+          git remote add origin_with_token "https://$GH_TOKEN@github.com/${{ github.repository }}.git"
+          git push --set-upstream origin_with_token main
 
       # - name: Upload CSV to Hadoop
       #   run: |
