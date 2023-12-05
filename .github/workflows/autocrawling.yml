@@ -5,7 +5,7 @@ name: Crawling
 
 on:
   schedule:
-    - cron: '*/5 * * * *' #5분 간격으로 실행하는 거 '0 0,12 * * *' 이거면 정오랑 자
+    - cron: '*/5 * * * *' #5분 간격으로 실행하는 거 '0 0,12 * * *' 이거면 정오랑 자정이됨
   workflow_dispatch:
     inputs:
       logLevel:
@@ -40,7 +40,7 @@ jobs:
       - name: Run crawling.py
         working-directory: CarrotMarket/JiHyeon/AutoCrawling/
         run: |
-          python BusNewsCrawling.py
+          python BusNewCrawling.py
           python CctvNewsCrawling.py
           python SubwayNewsCrawling.py
           python SecuritylightNewsCrawling.py
