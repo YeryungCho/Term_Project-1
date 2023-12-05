@@ -5,6 +5,7 @@ from newspaper import Article
 import pandas as pd
 from newspaper import Config
 from datetime import datetime
+import os
 
 titles = []
 contents = []
@@ -45,5 +46,11 @@ for i in range(1, 10, 10):
 
 data = {'제목': titles, '기사 내용': contents, '타임스탬프': timestamps}
 df = pd.DataFrame(data)
+
+output_directory = '/home/runner/work/Term_Project/CarrotMarket/JiHyeon/AutoCrawling/'
+os.makedirs(output_directory, exist_ok=True)
+
+output_file_path = os.path.join(output_directory, 'BusNews.csv')
+
 df.to_csv('/home/runner/work/Term_Project/CarrotMarket/JiHyeon/AutoCrawling/BusNews.csv', mode='a', index=False)
 
