@@ -67,10 +67,12 @@ jobs:
         run: |
           echo "${{ secrets.HADOOP_SSH_PRIVATE_KEY }}" > key.pem
           chmod 600 key.pem
+          mkdir -p ~/.ssh
           ssh-keyscan -H 34.125.180.104 >> ~/.ssh/known_hosts
           scp -i key.pem "CarrotMarket/JiHyeon/AutoCrawling/*.csv" maria_dev@34.125.180.104:~
           ssh -i key.pem maria_dev@34.125.180.104 "for file in ~/*.csv; do hdfs dfs -put -f \$file /home/maria_dev/crawling/; done"
         env:
           HADOOP_SSH_PRIVATE_KEY: ${{ secrets.HADOOP_SSH_PRIVATE_KEY }}
+
 
 
