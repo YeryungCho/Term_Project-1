@@ -34,7 +34,10 @@ jobs:
         working-directory: CarrotMarket/JiHyeon/AutoCrawling/
         run: |
           python -m pip install --upgrade pip
+          pip install requests
+          pip install beautifulsoup4
           pip install newspaper3k
+          pip install pandas
           pip install schedule
           
       - name: Run crawling.py
