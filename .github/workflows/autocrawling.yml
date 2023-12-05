@@ -52,6 +52,17 @@ jobs:
 
       - name: Upload CSV to Hadoop
         run: |
+          # Install Google Cloud SDK
+          curl https://sdk.cloud.google.com | bash
+          source /root/google-cloud-sdk/path.bash.inc
+      
+          # Decode the private key
+          echo "${{ secrets.HADOOP_SSH_PRIVATE_KEY }}" | base64 --decode > gcp_key.json
+      
+          # Activate service account and set project
+          gcloud auth activate-service-account --key-file=gcp_key.json
+          gcloud config set project [PROJECT_ID]
+      
           # Use gcloud compute scp command to copy CSV files to Hadoop directory on GCP VM instance
           gcloud compute scp --recurse CarrotMarket/JiHyeon/AutoCrawling/*.csv maria_dev@instance-1:/home/maria_dev/crawling/
         env:
