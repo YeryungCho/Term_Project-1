@@ -43,4 +43,4 @@ data = {'제목': titles, '기사 내용': contents, '타임스탬프': timestam
 df = pd.DataFrame(data)
 
 # Save the DataFrame to a CSV file
-df.to_csv('/home/runner/work/Term_Project/CarrotMarket/JiHyeon/AutoCrawling/emergencybellNews.csv', index=False)
+df.to_csv('emergencybellNews.csv', index=False)
