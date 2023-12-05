@@ -50,6 +50,14 @@ jobs:
           python PoliceNewsCrawling.py
           python EmergenbellNewsCrawling.py
 
+      - name: Commit and push changes
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "gus1043@gmail.com"
+          git add .
+          git commit -m "Update crawling"
+          git push
+
       # - name: Upload CSV to Hadoop
       #   run: |
       #     # Install Google Cloud SDK
