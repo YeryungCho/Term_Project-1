@@ -38,9 +38,9 @@ jobs:
           
       - name: Run crawling.py
         run: |
-          python Term_Project/CarrotMarket/JiHyeon/AutoCrawling/BusNewsCrawling.py
-          python Term_Project/CarrotMarket/JiHyeon/AutoCrawling/CctvNewsCrawling.py
-          python Term_Project/CarrotMarket/JiHyeon/AutoCrawling/SubwayNewsCrawling.py
-          python Term_Project/CarrotMarket/JiHyeon/AutoCrawling/SecuritylightNewsCrawling.py
-          python Term_Project/CarrotMarket/JiHyeon/AutoCrawling/PoliceNewsCrawling.py
-          python Term_Project/CarrotMarket/JiHyeon/AutoCrawling/EmergenbellNewsCrawling.py
+          python CarrotMarket/JiHyeon/AutoCrawling/BusNewsCrawling.py
+          python CarrotMarket/JiHyeon/AutoCrawling/CctvNewsCrawling.py
+          python CarrotMarket/JiHyeon/AutoCrawling/SubwayNewsCrawling.py
+          python CarrotMarket/JiHyeon/AutoCrawling/SecuritylightNewsCrawling.py
+          python CarrotMarket/JiHyeon/AutoCrawling/PoliceNewsCrawling.py
+          python CarrotMarket/JiHyeon/AutoCrawling/EmergenbellNewsCrawling.py
