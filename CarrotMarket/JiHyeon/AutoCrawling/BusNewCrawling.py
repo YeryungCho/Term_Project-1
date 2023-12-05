@@ -52,5 +52,4 @@ os.makedirs(output_directory, exist_ok=True)
 
 output_file_path = os.path.join(output_directory, 'BusNews.csv')
 
-df.to_csv('/home/runner/work/Term_Project/CarrotMarket/JiHyeon/AutoCrawling/BusNews.csv', mode='a', index=False)
-
+df.to_csv(output_file_path, mode='a', index=False)
