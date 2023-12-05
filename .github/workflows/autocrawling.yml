@@ -5,7 +5,7 @@ name: Crawling
 
 on:
   schedule:
-    - cron: '*/5 * * * *' #5분 간격으로 실행하는 거 '0 0,12 * * *' 이거면 정오랑 자정이됨
+    - cron: '0 */3 * * *' # 3시간 마다 실행
   workflow_dispatch:
     inputs:
       logLevel:
@@ -23,13 +23,14 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
-      
+      - name: Checkout code
+        uses: actions/checkout@v2
+
       - name: Set up Python 3.7
         uses: actions/setup-python@v2
         with:
           python-version: "3.7"
-          
+
       - name: Install dependencies
         working-directory: CarrotMarket/JiHyeon/AutoCrawling/
         run: |
@@ -39,7 +40,7 @@ jobs:
           pip install newspaper3k
           pip install pandas
           pip install schedule
-          
+
       - name: Run crawling.py
         working-directory: CarrotMarket/JiHyeon/AutoCrawling/
         run: |
@@ -49,3 +50,11 @@ jobs:
           python SecuritylightNewsCrawling.py
           python PoliceNewsCrawling.py
           python EmergenbellNewsCrawling.py
+
+      - name: Upload CSV to Hadoop
+        run: |
+          # Use gcloud compute scp command to copy CSV files to Hadoop directory on GCP VM instance
+          gcloud compute scp --recurse CarrotMarket/JiHyeon/AutoCrawling/*.csv maria_dev@instance-1:/home/maria_dev/crawling/
+        env:
+          HADOOP_USER_NAME: maria_dev
+          HADOOP_SSH_PRIVATE_KEY: ${{ secrets.HADOOP_SSH_PRIVATE_KEY }}
