@@ -52,9 +52,9 @@ jobs:
 
       - name: Commits
         run: |
-          git config --local user.email "your@email"
+          git config --local user.email "gus1043@gmail.com"
           git config --local user.name "Auto_Scraping_Name" # 커밋에 포함될 이름
-          git add news.json
+          git add .
           git commit -m "Auto - Update data with Scraping" # 커밋 메세지
 
       - name: Push
