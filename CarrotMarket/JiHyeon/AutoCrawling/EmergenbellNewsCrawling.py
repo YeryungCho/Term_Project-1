@@ -41,4 +41,4 @@ data = {'제목': titles, '기사 내용': contents}
 df = pd.DataFrame(data)
 
 # Save the DataFrame to a CSV file
-df.to_csv('emergencybellNews.csv', index=False)
+df.to_csv('CarrotMarket/JiHyeon/AutoCrawling/emergencybellNews.csv', index=False)

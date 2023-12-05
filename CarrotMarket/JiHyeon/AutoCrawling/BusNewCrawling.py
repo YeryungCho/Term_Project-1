@@ -41,5 +41,5 @@ for i in range(1, 100000, 10):
 
 data = {'제목': titles, '기사 내용': contents}
 df = pd.DataFrame(data)
-df.to_csv('BusNews.csv', mode='a', index=False)
+df.to_csv('CarrotMarket/JiHyeon/AutoCrawling/BusNews.csv', mode='a', index=False)
 
