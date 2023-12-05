@@ -3,11 +3,13 @@ import requests
 from bs4 import BeautifulSoup
 from newspaper import Article
 import pandas as pd
+from datetime import datetime
 
 titles = []
 contents = []
+timestamps = []
 
-for i in range(1, 100000, 10):
+for i in range(1, 10, 10):
     link = "https://search.naver.com/search.naver?where=news&sm=tab_pge&query=%EC%A7%80%ED%95%98%EC%B2%A0%EC%97%AD&sort=1&photo=0&field=0&pd=2&ds=2023.11.05&de=2023.12.05&mynews=0&office_type=0&office_section_code=0&news_office_checked=&office_category=0&service_area=0&nso=so:dd,p:1m,a:all&start=" + str(i)
     response = requests.get(link)
     soup = BeautifulSoup(response.text, 'html.parser')
@@ -33,14 +35,15 @@ for i in range(1, 100000, 10):
             # Append data to lists
             titles.append(title.get_text(strip=True))
             contents.append(article.text)
+            timestamps.append(datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
 
             print(f" - {i//10 + 1}페이지 크롤링 완료: {title.get_text(strip=True)}")
         except Exception as e:
             print(f" - {i//10 + 1}페이지 크롤링 중 오류 발생: {title.get_text(strip=True)} - {str(e)}")
 
 # Create a DataFrame
-data = {'제목': titles, '기사 내용': contents}
+data = {'제목': titles, '기사 내용': contents, '타임스탬프': timestamps}
 df = pd.DataFrame(data)
 
 # Save the DataFrame to a CSV file
-df.to_csv('CarrotMarket/JiHyeon/AutoCrawling/subwayNews.csv', mode='a', index=False)
+df.to_csv('/home/runner/work/Term_Project/CarrotMarket/JiHyeon/AutoCrawling/subwayNews.csv', mode='a', index=False)
