@@ -16,6 +16,8 @@ on:
           - info
           - warning
           - debug
+permissions:
+  contents: write
 
 jobs:
   build:
