@@ -59,7 +59,7 @@ jobs:
           git pull origin main # 최신 변경 사항 가져오기
           git push origin main # 변경된 내용 푸시
         env:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
 
 
       # - name: Upload CSV to Hadoop
