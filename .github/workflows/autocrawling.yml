@@ -31,16 +31,18 @@ jobs:
           python-version: "3.7"
           
       - name: Install dependencies
+        working-directory: CarrotMarket/JiHyeon/AutoCrawling/
         run: |
           python -m pip install --upgrade pip
           pip install newspaper3k
           pip install schedule
           
       - name: Run crawling.py
+        working-directory: CarrotMarket/JiHyeon/AutoCrawling/
         run: |
-          python CarrotMarket/JiHyeon/AutoCrawling/BusNewsCrawling.py
-          python CarrotMarket/JiHyeon/AutoCrawling/CctvNewsCrawling.py
-          python CarrotMarket/JiHyeon/AutoCrawling/SubwayNewsCrawling.py
-          python CarrotMarket/JiHyeon/AutoCrawling/SecuritylightNewsCrawling.py
-          python CarrotMarket/JiHyeon/AutoCrawling/PoliceNewsCrawling.py
-          python CarrotMarket/JiHyeon/AutoCrawling/EmergenbellNewsCrawling.py
+          python BusNewsCrawling.py
+          python CctvNewsCrawling.py
+          python SubwayNewsCrawling.py
+          python SecuritylightNewsCrawling.py
+          python PoliceNewsCrawling.py
+          python EmergenbellNewsCrawling.py
