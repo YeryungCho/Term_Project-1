@@ -63,22 +63,11 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
 
-
-      # - name: Upload CSV to Hadoop
-      #   run: |
-      #     # Install Google Cloud SDK
-      #     curl https://sdk.cloud.google.com | bash
-      #     source /home/runner/google-cloud-sdk/path.bash.inc
-      
-      #     # Decode the private key
-      #     echo "${{ secrets.HADOOP_SSH_PRIVATE_KEY }}" | base64 --decode > gcp_key.json
-      
-      #     # Activate service account and set project
-      #     gcloud auth activate-service-account --key-file=gcp_key.json
-      #     gcloud config set project winged-sol-407114
-      
-      #     # Use gcloud compute scp command to copy CSV files to Hadoop directory on GCP VM instance
-      #     gcloud compute scp --recurse CarrotMarket/JiHyeon/AutoCrawling/*.csv maria_dev@instance-1:/home/maria_dev/crawling/
-      #   env:
-      #     HADOOP_USER_NAME: maria_dev
-      #     HADOOP_SSH_PRIVATE_KEY: ${{ secrets.HADOOP_SSH_PRIVATE_KEY }}
+      - name: Upload CSV
+        run: |
+          echo "${{ secrets.SSH_KEY }}" > key.pem
+          chmod 600 key.pem
+          scp -i key.pem "CarrotMarket/JiHyeon/AutoCrawling/*.csv" maria_dev@34.125.180.104:~
+          ssh -i key.pem maria_dev@34.125.180.104 "for file in ~/*.csv; do hdfs dfs -put -f \$file /home/maria_dev/crawling/; done"
+        env:
+          SSH_KEY: ${{ secrets.SSH_KEY }}
