@@ -9,7 +9,7 @@ titles = []
 contents = []
 timestamps = []
 
-for i in range(1, 10,10):
+for i in range(1, 1000000,10):
     link = 'https://search.naver.com/search.naver?where=news&sm=tab_pge&query=%EA%B2%BD%EC%B0%B0%EC%84%9C%20%EC%95%88%EC%A0%84&sort=1&photo=0&field=0&pd=2&ds=2023.11.03&de=2023.12.03&mynews=0&office_type=0&office_section_code=0&news_office_checked=&office_category=0&service_area=0&nso=so:dd,p:1m,a:all&start=' + str(i)
     response = requests.get(link)
     soup = BeautifulSoup(response.text, 'html.parser')
