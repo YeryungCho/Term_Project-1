@@ -72,7 +72,7 @@ jobs:
   
       - name: Open SSH Tunnel
         run: |
-          ssh -i $HOME/key.pem -L 8080:localhost:8080 -N -f bigdepeu@34.125.180.104 -p 22
+          ssh -i $HOME/key.pem -L 8080:localhost:8080 -N -f bdpteam@34.125.180.104 -p 22
   
       - name: Upload CSV files
         run: |
