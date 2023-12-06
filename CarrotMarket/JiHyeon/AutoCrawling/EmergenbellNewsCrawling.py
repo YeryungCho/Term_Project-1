@@ -25,18 +25,19 @@ for i in range(1, 10,10):
     
     for title in news_titles:
         news_url = title['href']
+        try:
+            article = Article(news_url, language='ko', fetch_images=False, request_timeout=20)
+            article.download()
+            article.parse()
 
-        # Extract article content using newspaper library
-        article = Article(news_url, language='ko', fetch_images=False, request_timeout=20)
-        article.download()
-        article.parse()
+            # Append data to lists
+            titles.append(title.get_text(strip=True))
+            contents.append(article.text)
+            timestamps.append(datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
 
-        # Append data to lists
-        titles.append(title.get_text(strip=True))
-        contents.append(article.text)
-        timestamps.append(datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
-        
-        print(f" - {i//10 + 1}페이지 크롤링 완료: {title.get_text(strip=True)}")
+            print(f" - {i//10 + 1}페이지 크롤링 완료: {title.get_text(strip=True)}")
+        except Exception as e:
+            print(f" - {i//10 + 1}페이지 크롤링 중 오류 발생: {title.get_text(strip=True)} - {str(e)}")
 
 # Create a DataFrame
 data = {'제목': titles, '기사 내용': contents, '타임스탬프': timestamps}
