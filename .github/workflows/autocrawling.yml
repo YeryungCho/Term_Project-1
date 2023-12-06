@@ -63,14 +63,20 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
 
-      - name: Upload CSV
+      - name: Set up SSH key
         run: |
-          echo "${{ secrets.HADOOP_SSH_PRIVATE_KEY }}" > key.pem
+          echo ${{ secrets.HADOOP_SSH_PRIVATE_KEY }} > key.pem
           chmod 600 key.pem
           mkdir -p ~/.ssh
           ssh-keyscan -p 22 34.125.180.104 >> ~/.ssh/known_hosts
-          scp -v -i key.pem -P 22 "CarrotMarket/JiHyeon/AutoCrawling/*.csv" bdpteam@34.125.180.104:~
-          ssh -v -i key.pem -p 22 bdpteam@34.125.180.104 "for file in ~/*.csv; do hdfs dfs -put -f \$file /home/user/maria_dev/crawling/; done"
-        env:
-          HADOOP_SSH_PRIVATE_KEY: ${{ secrets.HADOOP_SSH_PRIVATE_KEY }}
 
+      - name: Upload CSV files
+        run: |
+          scp -v -i key.pem -P 22 "CarrotMarket/JiHyeon/AutoCrawling/*.csv" bdpteam@34.125.180.104:~
+
+      - name: Move CSV files to HDFS
+        run: |
+          ssh -v -i key.pem -p 22 bdpteam@34.125.180.104 "for file in ~/*.csv; do hdfs dfs -put -f \$file /home/user/maria_dev/crawling/; done"
+
+    env:
+      HADOOP_SSH_PRIVATE_KEY: ${{ secrets.HADOOP_SSH_PRIVATE_KEY }}
