@@ -69,10 +69,11 @@ jobs:
           chmod 600 key.pem
           mkdir -p ~/.ssh
           echo "Executing ssh-keyscan..."
-          ssh-keyscan -p 2222 -H 34.125.180.104 >> ~/.ssh/known_hosts
+          ssh-keyscan -p 22 -H 104 >> ~/.ssh/known_hosts 2>&1 || echo "ssh-keyscan failed"
           echo "Executing scp..."
-          scp -v -i key.pem -P 2222 "CarrotMarket/JiHyeon/AutoCrawling/*.csv" maria_dev@34.125.180.104:~
+          scp -v -i key.pem -P 22 "CarrotMarket/JiHyeon/AutoCrawling/*.csv" maria_dev@104:~
           echo "Executing ssh..."
-          ssh -v -i key.pem -p 2222 maria_dev@34.125.180.104 "for file in ~/*.csv; do hdfs dfs -put -f \$file /home/maria_dev/crawling/; done"
+          ssh -v -i key.pem -p 22 maria_dev@104 "for file in ~/*.csv; do hdfs dfs -put -f \$file /home/maria_dev/crawling/; done"
         env:
           HADOOP_SSH_PRIVATE_KEY: ${{ secrets.HADOOP_SSH_PRIVATE_KEY }}
+
