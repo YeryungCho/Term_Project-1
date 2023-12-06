@@ -72,8 +72,9 @@ jobs:
   
       - name: Open SSH Tunnel
         run: |
+          chmod 400 $HOME/key.pem
           ssh -i $HOME/key.pem -L 8080:localhost:8080 -N -f bdpteam@34.125.180.104 -p 22
-  
+
       - name: Upload CSV files
         run: |
           scp -v -i $HOME/key.pem -o IdentitiesOnly=yes -o StrictHostKeyChecking=no -P 22 "CarrotMarket/JiHyeon/AutoCrawling/*.csv" bdpteam@34.125.180.104:~
