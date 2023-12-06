@@ -74,7 +74,7 @@ jobs:
       
       - name: Upload CSV files
         run: |
-          scp -v -i $HOME/key.pem -o StrictHostKeyChecking=no -P 22 "CarrotMarket/JiHyeon/AutoCrawling/*.csv" bdpteam@34.125.180.104:~
+          scp -v -i $HOME/key.pem -o IdentitiesOnly=yes -o StrictHostKeyChecking=no -P 22 "CarrotMarket/JiHyeon/AutoCrawling/*.csv" bdpteam@34.125.180.104:~
 
       - name: Move CSV files to HDFS
         run: |
