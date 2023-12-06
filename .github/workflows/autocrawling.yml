@@ -57,28 +57,8 @@ jobs:
           git config --local user.email "gus1043@gmail.com"
           git config --local user.name "Auto_Scraping_Name"
           git add .
-          git diff --cached --quiet || git commit -m "Auto - Update data with Scraping"
+          git diff --cached --quiet || git commit -m "Auto - Update data with Crawling"
           git pull origin main # 최신 변경 사항 가져오기
           git push origin main # 변경된 내용 푸시
         env:
           GITHUB_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
-
-      - name: Set up SSH key
-        run: |
-          echo "${{ secrets.HADOOP_SSH_PRIVATE_KEY }}" > $HOME/key.pem
-          chmod 400 $HOME/key.pem
-          mkdir -p ~/.ssh
-          ssh-keyscan -p 22 34.125.180.104 >> ~/.ssh/known_hosts
-  
-      - name: Open SSH Tunnel
-        run: |
-          chmod 400 $HOME/key.pem
-          ssh -i $HOME/key.pem -L 8080:localhost:8080 -N -f bdpteam@34.125.180.104 -p 22
-
-      - name: Upload CSV files
-        run: |
-          scp -v -i $HOME/key.pem -o IdentitiesOnly=yes -o StrictHostKeyChecking=no -P 22 "CarrotMarket/JiHyeon/AutoCrawling/*.csv" bdpteam@34.125.180.104:~
-  
-      - name: Move CSV files to HDFS
-        run: |
-          ssh -v -i $HOME/key.pem -p 22 bdpteam@34.125.180.104 "for file in ~/*.csv; do hdfs dfs -put -f \$file /home/user/maria_dev/crawling/; done"
