@@ -5,6 +5,10 @@ from newspaper import Article
 import pandas as pd
 from datetime import datetime
 
+# Initialize counters
+total_articles = 0
+max_articles = 4000
+
 titles = []
 contents = []
 timestamps = []
@@ -18,12 +22,16 @@ for i in range(1, 1000000, 10):
     # Extract news titles and links
     news_titles = soup.find_all('a', class_='news_tit')
 
-     # If less than 10 news titles, stop crawling
+    # If less than 10 news titles, stop crawling
     if len(news_titles) < 10:
         print(f" - {i//10 + 1}페이지에서 기사 수가 10개 미만이므로 크롤링 중단")
         break
-        
+
     for title in news_titles:
+        if total_articles >= max_articles:
+            print(f"총 {max_articles}개의 기사 크롤링 완료. 크롤링 중단.")
+            break
+
         news_url = title['href']
 
         # Extract article content using newspaper library
@@ -37,10 +45,13 @@ for i in range(1, 1000000, 10):
             contents.append(article.text)
             timestamps.append(datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
 
+            # Increment the total_articles counter
+            total_articles += 1
+
             print(f" - {i//10 + 1}페이지 크롤링 완료: {title.get_text(strip=True)}")
         except Exception as e:
             print(f" - {i//10 + 1}페이지 크롤링 중 오류 발생: {title.get_text(strip=True)} - {str(e)}")
-
+            
 # Create a DataFrame
 data = {'제목': titles, '기사 내용': contents, '타임스탬프': timestamps}
 df = pd.DataFrame(data)
