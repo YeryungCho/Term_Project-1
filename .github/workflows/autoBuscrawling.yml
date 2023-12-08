@@ -52,8 +52,8 @@ jobs:
           git config --local user.email "gus1043@gmail.com"
           git config --local user.name "Auto_Scraping_Name"
           git add .
-          git diff --cached --quiet || git commit -m "Auto - Update Bus News data with Crawling"
-          git pull origin main # 최신 변경 사항 가져오기
+          git diff --cached --quiet || git commit -m "Auto - Update Emergencybell News data with Crawling"
+          git pull --no-rebase origin main # 최신 변경 사항 가져오기 (병합)
           git push origin main # 변경된 내용 푸시
         env:
           GITHUB_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
