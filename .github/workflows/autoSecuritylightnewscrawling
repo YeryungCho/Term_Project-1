@@ -4,7 +4,7 @@ name: Crawling
 
 on:
   schedule:
-    - cron: '6 0,118 * * *' # 매일 새벽 6시와 18시에 실행
+    - cron: '6 0,18 * * *' # 매일 새벽 6시와 18시에 실행
   workflow_dispatch:
     inputs:
       logLevel:
